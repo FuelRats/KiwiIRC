@@ -1,5 +1,6 @@
 var rescuePlugin = {
 	AnnouncerUrl: '',
+	ApiUrl: '',
 	UseClientForm: true,
 	CommanderInfo: {
 		CMDRName: null,
@@ -15,17 +16,17 @@ var rescuePlugin = {
 		Active: null,
 		Client: null,
 		CodeRed: null,
-		Epic: null,
 		Open: null,
 		Notes: null,
 		Platform: null,
 		Successful: null,
+		Epic: null,
 		System: null,
 		Title: null,
 		CreatedAt: null,
 		UpdatedAt: null,
-		Rats: [],
-		UnidentifiedRats: [],
+		Rats: {},
+		UnidentifiedRats: {},
 		FirstLimpet: null
 	},
 	SetCommanderInfo: function() {
@@ -68,7 +69,6 @@ var rescuePlugin = {
 		rescuePlugin.CommanderInfo.EO2 = document.querySelector('#EO2').checked ? 'NOT OK' : 'OK';
 
 		rescuePlugin.CommanderInfo.ExtraData = navigator.language ? 'Language: ' + getLanguageName(navigator.language) + ' (' + navigator.language + ')' : 'x';
-		console.log('Hello!');
 	},
 	SendAnnounceToIRC: function() {
 		if(rescuePlugin.CommanderInfo.CMDRName !== null) {
@@ -84,8 +84,10 @@ var rescuePlugin = {
 					platform: rescuePlugin.CommanderInfo.Platform,
 					extradata: rescuePlugin.CommanderInfo.ExtraData
 				},
-				success: function() { }
+				success: function() { 
+				}
 			});
+			setTimeout(rescuePlugin.GetInitialRescueInformation, 1000);
 		}
 	},
 	BuildLoginForm: function() {
@@ -113,18 +115,108 @@ var rescuePlugin = {
 				o2Item = jQuery('<tr class="o2"><td><label for="server_select_o2">Are you on emergency O2?</label></td><td><label style="font-size: .9em;"><input type="checkbox" id="EO2" style="width: auto;" value="NOT OK" /> YES! I have a timer in upper right corner.</td></tr>');
 				systemItem.after(o2Item);
 			}
-			jQuery('#kiwi .server_select button').on('click', rescuePlugin.SetCommanderInfo);
-			var network = kiwi.components.Network();
-			network.on('connect', rescuePlugin.SendAnnounceToIRC);
+
+			var contentHolder = jQuery('.side_panel .content');
+			jQuery('.server_select.initial').css({ 'margin-top': '155px', 'width': '620px' }); 
+			var topPanel = jQuery('<div style="height: 150px; background-color: rgba(0,0,0,0.9); position: fixed; top: 0; left: 0; right: 0;"><img src="/kiwi/assets/plugins/FuelRats-RescuePlugin/fuelrats.png" alt="Fuel Rats" title="Fuel Rats" style="width: 138px; margin-left: 5px; margin-top: 5px;" /></div>');
+			
+			contentHolder.empty();
+			contentHolder.append(topPanel);			
+			
+			var infoText = jQuery('<div style="margin: 1em 20px; margin-top: 70px;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to assist you on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
+			contentHolder.append(infoText);
 		} else {
+			var cmdrLabel = jQuery('label[for="server_select_nick"]');
+			if(cmdrLabel.length == 0) { setTimeout(rescuePlugin.BuildLoginForm, 50); return; }
+			cmdrLabel.text('CMDR Name');
+
+			jQuery('.status').text('Please enter your details below...');
+
+			var contentHolder = jQuery('.side_panel .content');
+			jQuery('.server_select.initial').css({ 'margin-top': '155px', 'width': '620px' }); 
+			var topPanel = jQuery('<div style="height: 150px; background-color: rgba(0,0,0,0.9); position: fixed; top: 0; left: 0; right: 0;"><img src="/kiwi/assets/plugins/FuelRats-RescuePlugin/fuelrats.png" alt="Fuel Rats" title="Fuel Rats" style="width: 138px; margin-left: 5px; margin-top: 5px;" /></div>');
+			
+			contentHolder.empty();
+			contentHolder.append(topPanel);			
+
+			var infoText = jQuery('<div style="margin: 1em 20px; margin-top: 70px;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to make you assist our clients on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
+			contentHolder.append(infoText);
 		}
 		jQuery('.have_pass').hide();
 		jQuery('.channel').hide();
 		jQuery('.show_more').hide();
 		jQuery('.more').hide();
-	}
+		jQuery('#kiwi .server_select button').on('click', rescuePlugin.SetCommanderInfo);
+	},
+	GetInitialRescueInformation: function() {
+		$.ajax({
+			url: rescuePlugin.ApiUrl + '/rescues?client=' + encodeURIComponent(rescuePlugin.CommanderInfo.CMDRName),
+			type: 'GET',
+			success: function(data) {
+				if(data.data.length > 0) {
+					var rescue = data.data[0];
+					rescuePlugin.CommanderInfo.RescueId = rescue.id;
+
+					rescuePlugin.RescueInfo.Id = rescue.id;
+					rescuePlugin.RescueInfo.Active = rescue.active;
+					rescuePlugin.RescueInfo.Client = rescue.client;
+					rescuePlugin.RescueInfo.CodeRed = rescue.codeRed;
+					rescuePlugin.RescueInfo.CreatedAt = rescue.createdAt;
+					rescuePlugin.RescueInfo.System = rescue.system;
+					rescuePlugin.RescueInfo.Platform = rescue.platform;
+					rescuePlugin.RescueInfo.UpdatedAt = rescue.updatedAt;
+					rescuePlugin.RescueInfo.Title = rescue.title;
+				} else {
+					setTimeout(rescuePlugin.SendAnnounceToIRC, 5000);
+				}
+				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
+			},
+			error: function() { setTimeout(rescuePlugin.GetInitialRescueInformation, 3000); }
+		});
+	},
+	UpdateRescueInfo: function() {
+		$.ajax({
+			url: rescuePlugin.ApiUrl + '/rescues/' + rescuePlugin.RescueInfo.Id,
+			type: 'GET',
+			success: function(data) {
+				var rescue = data.data;
+				rescuePlugin.RescueInfo.Active = rescue.active;
+				rescuePlugin.RescueInfo.CodeRed = rescue.codeRed;
+				rescuePlugin.RescueInfo.System = rescue.system;
+				rescuePlugin.RescueInfo.Platform = rescue.platform;
+				rescuePlugin.RescueInfo.Open = rescue.open;
+				rescuePlugin.RescueInfo.UpdatedAt = rescue.updatedAt;
+				rescuePlugin.RescueInfo.Epic = rescue.epic;
+				rescuePlugin.RescueInfo.Title = rescue.title;
+				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
+				var rats = rescue.rats.length;
+				for(var i = 0; i < rats; i++) {
+					rescuePlugin.RescueInfo.Rats[rescue.rats[i]] = rescuePlugin.FetchRatInfo(rescue.rats[i]);
+				}
+			},
+			error: function() { setTimeout(rescuePlugin.UpdateRescueInfo, 10000); }
+		});
+	},
+	FetchRatInfo: function(ratId) {
+		if(rescuePlugin.CachedRats[ratId]) {
+			return rescuePlugin.CachedRats[ratId];
+		} else {
+			$.ajax({
+				url: rescuePlugin.ApiUrl + '/rats/' + ratId,
+				type: 'GET',
+				success: function(rat) {
+					rescuePlugin.CachedRats[ratId] = rat.data.CMDRname;
+				}
+			});
+		}
+	},
+	CachedRats: {}
 };
 
 jQuery(document).ready(function() {
 	rescuePlugin.BuildLoginForm();
+	if(rescuePlugin.UseClientForm) {
+		var network = kiwi.components.Network();
+		network.on('connect', rescuePlugin.SendAnnounceToIRC);
+	}
 });
