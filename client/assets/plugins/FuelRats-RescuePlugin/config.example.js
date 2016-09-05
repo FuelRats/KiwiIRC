@@ -31,6 +31,7 @@ var rescuePlugin = {
 	SetCommanderInfo: function() {
         	function sanitizeCMDRName(cmdrName) {
                 	cmdrName = cmdrName.replace(/^cmdr/i,'').trim();
+			cmdrName = transliterate(cmdrName);
 	                return cmdrName;
         	}
 
@@ -39,6 +40,7 @@ var rescuePlugin = {
                 	cmdrName = cmdrName.replace(/\s+/g,'_');
 	                cmdrName = cmdrName.split(' ').join('_');
 	                cmdrName = cmdrName.replace(/\./g, '');
+			cmdrName = transliterate(cmdrName);
 	                cmdrName = removeDiacritics(cmdrName);
 	                cmdrName = cmdrName.replace(/([^A-Za-z0-9\[\]{}\^´`_\\\|-]+)/g,'');
 	                cmdrName = cmdrName.replace(/^\d+/,'');
@@ -48,6 +50,8 @@ var rescuePlugin = {
 		var cmdrName = document.getElementById('server_select_nick').value;
 		rescuePlugin.CommanderInfo.CMDRName = sanitizeCMDRName(cmdrName);
 		rescuePlugin.CommanderInfo.IRCNick = sanitizeIRCName(cmdrName);
+
+		document.getElementById('server_select_nick').value = rescuePlugin.CommanderInfo.IRCNick;
 
 		rescuePlugin.CommanderInfo.System = 'unknown';
 		var sysItem = document.getElementById('system');
@@ -64,22 +68,25 @@ var rescuePlugin = {
 		rescuePlugin.CommanderInfo.EO2 = document.querySelector('#EO2').checked ? 'NOT OK' : 'OK';
 
 		rescuePlugin.CommanderInfo.ExtraData = navigator.language ? 'Language: ' + getLanguageName(navigator.language) + ' (' + navigator.language + ')' : 'x';
+		console.log('Hello!');
 	},
 	SendAnnounceToIRC: function() {
-		jQuery.ajax({
-			url: rescuePlugin.AnnouncerUrl,
-			type: 'GET',
-			crossDomain: true,
-			dataType: 'jsonp',
-			data: {
-				cmdrname: rescuePlugin.CommanderInfo.CMDRName,
-				EO2: rescuePlugin.CommanderInfo.EO2,
-				system: rescuePlugin.CommanderInfo.System,
-				platform: rescuePlugin.CommanderInfo.Platform,
-				extradata: rescuePlugin.CommanderInfo.ExtraData
-			},
-			success: function() { }
-		});
+		if(rescuePlugin.CommanderInfo.CMDRName !== null) {
+			jQuery.ajax({
+				url: rescuePlugin.AnnouncerUrl,
+				type: 'GET',
+				crossDomain: true,
+				dataType: 'jsonp',
+				data: {
+					cmdrname: rescuePlugin.CommanderInfo.CMDRName,
+					EO2: rescuePlugin.CommanderInfo.EO2,
+					system: rescuePlugin.CommanderInfo.System,
+					platform: rescuePlugin.CommanderInfo.Platform,
+					extradata: rescuePlugin.CommanderInfo.ExtraData
+				},
+				success: function() { }
+			});
+		}
 	},
 	BuildLoginForm: function() {
 		if(rescuePlugin.UseClientForm) {
@@ -106,16 +113,18 @@ var rescuePlugin = {
 				o2Item = jQuery('<tr class="o2"><td><label for="server_select_o2">Are you on emergency O2?</label></td><td><label style="font-size: .9em;"><input type="checkbox" id="EO2" style="width: auto;" value="NOT OK" /> YES! I have a timer in upper right corner.</td></tr>');
 				systemItem.after(o2Item);
 			}
+			jQuery('#kiwi .server_select button').on('click', rescuePlugin.SetCommanderInfo);
+			var network = kiwi.components.Network();
+			network.on('connect', rescuePlugin.SendAnnounceToIRC);
 		} else {
 		}
 		jQuery('.have_pass').hide();
 		jQuery('.channel').hide();
+		jQuery('.show_more').hide();
+		jQuery('.more').hide();
 	}
 };
 
 jQuery(document).ready(function() {
 	rescuePlugin.BuildLoginForm();
-	jQuery('#kiwi .server_select button:contains("Start")').on('click', rescuePlugin.SetCommanderInfo);
-	var network = kiwi.components.Network();
-	network.on('connect', rescuePlugin.SendAnnounceToIRC);
 });
