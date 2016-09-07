@@ -72,6 +72,10 @@ var rescuePlugin = {
 		rescuePlugin.CommanderInfo.ExtraData = navigator.language ? 'Language: ' + getLanguageName(navigator.language) + ' (' + navigator.language + ')' : 'x';
 	},
 	SendAnnounceToIRC: function() {
+		if(GetCookie('sentAnnounce') != null) {
+			rescuePlugin.GetInitialRescueInformation();
+			return;
+		}
 		if(rescuePlugin.CommanderInfo.CMDRName !== null) {
 			jQuery.ajax({
 				url: rescuePlugin.AnnouncerUrl,
@@ -168,13 +172,44 @@ var rescuePlugin = {
 					rescuePlugin.RescueInfo.UpdatedAt = rescue.updatedAt;
 					rescuePlugin.RescueInfo.Title = rescue.title;
 					rescuePlugin.RescueInfo.Data = rescue.data;
+					var rats = rescue.rats.length;
+					rescuePlugin.RescueInfo.Rats = {};
+					for(var i = 0; i < rats; i++) {
+						rescuePlugin.RescueInfo.Rats[rescue.rats[i]] = rescuePlugin.FetchRatInfo(rescue.rats[i]);
+					}
+					jQuery('#frrpRescueWindow').appendTo('.right-bar-content');
 				} else {
 					setTimeout(rescuePlugin.SendAnnounceToIRC, 5000);
 				}
 				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
+				rescuePlugin.UpdateRescueGUI();
+				SetCookie('sentAnnounce', rescuePlugin.RescueInfo.Id, 3600 * 1000);
 			},
 			error: function() { setTimeout(rescuePlugin.GetInitialRescueInformation, 3000); }
 		});
+	},
+	UpdateRescueGUI: function() {
+		var win = jQuery('#frrpRescueWindow');
+		win.empty();
+
+		var cmdr = jQuery('<div class="cmdrName">CMDR ' + rescuePlugin.RescueInfo.Client + '</div>');
+		win.append(cmdr);
+
+		var sys = jQuery('<div class="system">' + rescuePlugin.RescueInfo.System + '</div>');
+		win.append(sys);
+		
+		var rats = jQuery('<div class="rats"><b>Rats on mission:</b></div>');
+		win.append(rats);
+
+		var ratList = Object.keys(rescuePlugin.RescueInfo.Rats);
+		for(var rat in ratList) {
+			if(rescuePlugin.RescueInfo.Rats.hasOwnProperty(ratList[rat])) {
+				var _rat = rescuePlugin.RescueInfo.Rats[ratList[rat]];
+				if(_rat != undefined) {
+					jQuery('#frrpRescueWindow .rats').append(jQuery('<div>' + rescuePlugin.RescueInfo.Rats[ratList[rat]] + '</div>'));
+				}
+			}
+		}
 	},
 	UpdateRescueInfo: function() {
 		$.ajax({
@@ -191,10 +226,12 @@ var rescuePlugin = {
 				rescuePlugin.RescueInfo.Epic = rescue.epic;
 				rescuePlugin.RescueInfo.Title = rescue.title;
 				rescuePlugin.RescueInfo.Data = rescue.data;
+				rescuePlugin.RescueInfo.Rats = {};
 				var rats = rescue.rats.length;
 				for(var i = 0; i < rats; i++) {
 					rescuePlugin.RescueInfo.Rats[rescue.rats[i]] = rescuePlugin.FetchRatInfo(rescue.rats[i]);
 				}
+				rescuePlugin.UpdateRescueGUI();
 				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
 			},
 			error: function() { setTimeout(rescuePlugin.UpdateRescueInfo, 10000); }
@@ -207,6 +244,7 @@ var rescuePlugin = {
 			$.ajax({
 				url: rescuePlugin.ApiUrl + '/rats/' + ratId,
 				type: 'GET',
+				async: false,
 				success: function(rat) {
 					rescuePlugin.CachedRats[ratId] = rat.data.CMDRname;
 				}
