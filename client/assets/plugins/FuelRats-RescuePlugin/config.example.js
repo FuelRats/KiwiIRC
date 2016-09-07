@@ -181,7 +181,7 @@ var rescuePlugin = {
 				} else {
 					setTimeout(rescuePlugin.SendAnnounceToIRC, 5000);
 				}
-				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
+				setTimeout(rescuePlugin.UpdateRescueInfo, 1000);
 				rescuePlugin.UpdateRescueGUI();
 				SetCookie('sentAnnounce', rescuePlugin.RescueInfo.Id, 3600 * 1000);
 			},
@@ -244,7 +244,7 @@ var rescuePlugin = {
 					rescuePlugin.RescueInfo.Rats[rescue.rats[i]] = rescuePlugin.FetchRatInfo(rescue.rats[i]);
 				}
 				rescuePlugin.UpdateRescueGUI();
-				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
+				setTimeout(rescuePlugin.UpdateRescueInfo, 1000);
 			},
 			error: function() { setTimeout(rescuePlugin.UpdateRescueInfo, 10000); }
 		});
