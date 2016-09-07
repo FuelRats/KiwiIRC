@@ -210,6 +210,18 @@ var rescuePlugin = {
 				}
 			}
 		}
+
+		if(rescuePlugin.RescueInfo.CodeRed) {
+			win.css({
+				'background-color': '#6d0a0a',
+				'color': '#FFFFFF'
+			});
+		} else {
+			win.css({
+				'background-color': '#c4c4c4',
+				'color': '#666666'
+			});
+		}
 	},
 	UpdateRescueInfo: function() {
 		$.ajax({
