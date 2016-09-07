@@ -1,6 +1,6 @@
 var rescuePlugin = {
-	AnnouncerUrl: '',
-	ApiUrl: '',
+        AnnouncerUrl: '',
+        ApiUrl: '',
 	UseClientForm: true,
 	CommanderInfo: {
 		CMDRName: null,
@@ -27,7 +27,8 @@ var rescuePlugin = {
 		UpdatedAt: null,
 		Rats: {},
 		UnidentifiedRats: {},
-		FirstLimpet: null
+		FirstLimpet: null,
+		Data: null
 	},
 	SetCommanderInfo: function() {
         	function sanitizeCMDRName(cmdrName) {
@@ -166,6 +167,7 @@ var rescuePlugin = {
 					rescuePlugin.RescueInfo.Platform = rescue.platform;
 					rescuePlugin.RescueInfo.UpdatedAt = rescue.updatedAt;
 					rescuePlugin.RescueInfo.Title = rescue.title;
+					rescuePlugin.RescueInfo.Data = rescue.data;
 				} else {
 					setTimeout(rescuePlugin.SendAnnounceToIRC, 5000);
 				}
@@ -188,11 +190,12 @@ var rescuePlugin = {
 				rescuePlugin.RescueInfo.UpdatedAt = rescue.updatedAt;
 				rescuePlugin.RescueInfo.Epic = rescue.epic;
 				rescuePlugin.RescueInfo.Title = rescue.title;
-				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
+				rescuePlugin.RescueInfo.Data = rescue.data;
 				var rats = rescue.rats.length;
 				for(var i = 0; i < rats; i++) {
 					rescuePlugin.RescueInfo.Rats[rescue.rats[i]] = rescuePlugin.FetchRatInfo(rescue.rats[i]);
 				}
+				setTimeout(rescuePlugin.UpdateRescueInfo, 5000);
 			},
 			error: function() { setTimeout(rescuePlugin.UpdateRescueInfo, 10000); }
 		});
