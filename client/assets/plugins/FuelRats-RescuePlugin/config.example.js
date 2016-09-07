@@ -28,7 +28,10 @@ var rescuePlugin = {
 		Rats: {},
 		UnidentifiedRats: {},
 		FirstLimpet: null,
-		Data: null
+		Data: null,
+		FriendReceieved: false,
+		WingReceieved: false,
+		BeaconReceieved: false
 	},
 	SetCommanderInfo: function() {
         	function sanitizeCMDRName(cmdrName) {
@@ -73,9 +76,10 @@ var rescuePlugin = {
 	},
 	SendAnnounceToIRC: function() {
 		if(GetCookie('sentAnnounce') != null) {
-			rescuePlugin.GetInitialRescueInformation();
+			rescuePlugin.GetInitialRescueInformation(GetCookie('sentAnnounce'));
 			return;
 		}
+		DelCookie('sentAnnounce');
 		if(rescuePlugin.CommanderInfo.CMDRName !== null) {
 			jQuery.ajax({
 				url: rescuePlugin.AnnouncerUrl,
@@ -89,16 +93,15 @@ var rescuePlugin = {
 					platform: rescuePlugin.CommanderInfo.Platform,
 					extradata: rescuePlugin.CommanderInfo.ExtraData
 				},
-				success: function() { 
-				}
+				success: function() {}
 			});
-			setTimeout(rescuePlugin.GetInitialRescueInformation, 1000);
+			setTimeout(rescuePlugin.GetInitialRescueInformation, 3000);
 		}
 	},
-	BuildLoginForm: function() {
+	BuildLoginForm: function(loadFromOngoingRescue) {
 		if(rescuePlugin.UseClientForm) {
 			var cmdrLabel = jQuery('label[for="server_select_nick"]');
-			if(cmdrLabel.length == 0) { setTimeout(rescuePlugin.BuildLoginForm, 50); return; }
+			if(cmdrLabel.length == 0) { setTimeout(function() { rescuePlugin.BuildLoginForm(loadFromOngoingRescue); }, 50); return; }
 			cmdrLabel.text('CMDR Name');
 
 			jQuery('.status').text('Please enter your details below...');
@@ -130,6 +133,32 @@ var rescuePlugin = {
 			
 			var infoText = jQuery('<div style="margin: 1em 20px; margin-top: 70px;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to assist you on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
 			contentHolder.append(infoText);
+			if(loadFromOngoingRescue != undefined && loadFromOngoingRescue) {
+				rescuePlugin.GetInitialRescueInformation(GetCookie('sentAnnounce'), function() {
+					jQuery('#server_select_nick').val(rescuePlugin.RescueInfo.Client);
+					jQuery('#server_select_nick').attr('readonly', 'readonly');
+					jQuery('#system').val(rescuePlugin.RescueInfo.System);
+					jQuery('#system').attr('readonly', 'readonly');
+					jQuery('#platform').val(rescuePlugin.RescueInfo.Platform.toUpperCase());
+					jQuery('#platform').attr('disabled', 'disabled');
+					if(rescuePlugin.RescueInfo.CodeRed) {
+						jQuery('#EO2').attr('checked', 'checked');
+					}
+					jQuery('#EO2').attr('disabled', 'disabled');
+
+					var rerescueMe = jQuery('<button class="rehelp-me">I need help again!</button>');
+					jQuery('.start button').before(rerescueMe);
+					jQuery('.rehelp-me').on('click', function() {
+						DelCookie('sentAnnounce');
+	                                        jQuery('#server_select_nick').removeAttr('readonly');
+                	                        jQuery('#system').removeAttr('readonly');
+                                	        jQuery('#platform').removeAttr('disabled');
+						jQuery('#EO2').removeAttr('disabled');
+						jQuery('.rehelp-me').remove();
+						return false;
+					});
+				});
+			}
 		} else {
 			var cmdrLabel = jQuery('label[for="server_select_nick"]');
 			if(cmdrLabel.length == 0) { setTimeout(rescuePlugin.BuildLoginForm, 50); return; }
@@ -147,15 +176,16 @@ var rescuePlugin = {
 			var infoText = jQuery('<div style="margin: 1em 20px; margin-top: 70px;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to make you assist our clients on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
 			contentHolder.append(infoText);
 		}
+
 		jQuery('.have_pass').hide();
 		jQuery('.channel').hide();
 		jQuery('.show_more').hide();
 		jQuery('.more').hide();
 		jQuery('#kiwi .server_select button').on('click', rescuePlugin.SetCommanderInfo);
 	},
-	GetInitialRescueInformation: function() {
+	GetInitialRescueInformation: function(rescueId, onLoad) {
 		$.ajax({
-			url: rescuePlugin.ApiUrl + '/rescues?client=' + encodeURIComponent(rescuePlugin.CommanderInfo.CMDRName),
+			url: rescuePlugin.ApiUrl + '/rescues' + (typeof rescueId == 'undefined' ? '?client=' + encodeURIComponent(rescuePlugin.CommanderInfo.CMDRName) : '?id=' + rescueId),
 			type: 'GET',
 			success: function(data) {
 				if(data.data.length > 0) {
@@ -172,6 +202,7 @@ var rescuePlugin = {
 					rescuePlugin.RescueInfo.UpdatedAt = rescue.updatedAt;
 					rescuePlugin.RescueInfo.Title = rescue.title;
 					rescuePlugin.RescueInfo.Data = rescue.data;
+					rescuePlugin.RescueInfo.Open = rescue.open;
 					var rats = rescue.rats.length;
 					rescuePlugin.RescueInfo.Rats = {};
 					for(var i = 0; i < rats; i++) {
@@ -179,48 +210,74 @@ var rescuePlugin = {
 					}
 					jQuery('#frrpRescueWindow').appendTo('.right-bar-content');
 				} else {
-					setTimeout(rescuePlugin.SendAnnounceToIRC, 5000);
+					setTimeout(rescuePlugin.SendAnnounceToIRC, 1000);
 				}
 				setTimeout(rescuePlugin.UpdateRescueInfo, 1000);
 				rescuePlugin.UpdateRescueGUI();
 				SetCookie('sentAnnounce', rescuePlugin.RescueInfo.Id, 3600 * 1000);
+				if(typeof onLoad != undefined && typeof onLoad == 'function') {
+					onLoad();
+				}
 			},
-			error: function() { setTimeout(rescuePlugin.GetInitialRescueInformation, 3000); }
+			error: function() { setTimeout(rescuePlugin.GetInitialRescueInformation, 1000); }
 		});
 	},
 	UpdateRescueGUI: function() {
 		var win = jQuery('#frrpRescueWindow');
 		win.empty();
+		if(!rescuePlugin.RescueInfo.Open) {
+			var closeInfo = jQuery('<div class="closedCase">Thanks for fueling with the Rats. Make sure to stay for a moment longer as your rat will give you some invaluable information</div>');
+			win.append(closeInfo);
+			DelCookie('sentAnnounce');
+			setTimeout(function() { jQuery('.closedCase').parent().fadeOut('slow'); }, 10000);
+		} else {
+			var cmdr = jQuery('<div class="cmdrName">CMDR ' + rescuePlugin.RescueInfo.Client + '</div>');
+			win.append(cmdr);
 
-		var cmdr = jQuery('<div class="cmdrName">CMDR ' + rescuePlugin.RescueInfo.Client + '</div>');
-		win.append(cmdr);
-
-		var sys = jQuery('<div class="system">' + rescuePlugin.RescueInfo.System + '</div>');
-		win.append(sys);
+			var sys = jQuery('<div class="system">' + rescuePlugin.RescueInfo.System + '</div>');
+			win.append(sys);
 		
-		var rats = jQuery('<div class="rats"><b>Rats on mission:</b></div>');
-		win.append(rats);
+			var rats = jQuery('<div class="rats"><b>Rats on mission:</b></div>');
+			win.append(rats);
 
-		var ratList = Object.keys(rescuePlugin.RescueInfo.Rats);
-		for(var rat in ratList) {
-			if(rescuePlugin.RescueInfo.Rats.hasOwnProperty(ratList[rat])) {
-				var _rat = rescuePlugin.RescueInfo.Rats[ratList[rat]];
-				if(_rat != undefined) {
-					jQuery('#frrpRescueWindow .rats').append(jQuery('<div>' + rescuePlugin.RescueInfo.Rats[ratList[rat]] + '</div>'));
+			var stat = jQuery('<div class="rescue-status">Initializing</div>');
+			win.append(stat);
+
+			var ratList = Object.keys(rescuePlugin.RescueInfo.Rats);
+			for(var rat in ratList) {
+				if(rescuePlugin.RescueInfo.Rats.hasOwnProperty(ratList[rat])) {
+					var _rat = rescuePlugin.RescueInfo.Rats[ratList[rat]];
+					if(_rat != undefined) {
+						jQuery('#frrpRescueWindow .rats').append(jQuery('<div>' + rescuePlugin.RescueInfo.Rats[ratList[rat]].CMDRname + '</div>'));
+					}
 				}
 			}
-		}
 
-		if(rescuePlugin.RescueInfo.CodeRed) {
-			win.css({
-				'background-color': '#6d0a0a',
-				'color': '#FFFFFF'
-			});
-		} else {
-			win.css({
-				'background-color': '#c4c4c4',
-				'color': '#666666'
-			});
+			if(rescuePlugin.RescueInfo.CodeRed) {
+				win.css({
+					'background-color': '#6d0a0a',
+					'color': '#FFFFFF'
+				});
+			} else {
+				win.css({
+					'background-color': '#c4c4c4',
+					'color': '#666666'
+				});
+			}
+
+			if(ratList.length == 0) {
+				stat.text('Wait for rat assignment');
+			} else {
+				if(!rescuePlugin.RescueInfo.FriendReceived) {
+					stat.text('Please send FR to rats');
+				} else if(!rescuePlugin.RescueInfo.WingReceived) {
+					stat.text('Please send WR to rats');
+				} else if(!rescuePlugin.RescueInfo.BeaconReceieved) {
+					stat.text('Please activate beacon');
+				} else {
+					stat.text('Wait for rescue!');
+				}
+			}
 		}
 	},
 	UpdateRescueInfo: function() {
@@ -256,20 +313,30 @@ var rescuePlugin = {
 			$.ajax({
 				url: rescuePlugin.ApiUrl + '/rats/' + ratId,
 				type: 'GET',
-				async: false,
 				success: function(rat) {
-					rescuePlugin.CachedRats[ratId] = rat.data.CMDRname;
+					rescuePlugin.CachedRats[ratId] = rat.data;
 				}
 			});
 		}
 	},
-	CachedRats: {}
+	CachedRats: {},
+	ParseInput: function(data) {
+		console.log(data);
+	}
 };
 
 jQuery(document).ready(function() {
-	rescuePlugin.BuildLoginForm();
+	var network = kiwi.components.Network();
+
+	if(GetCookie('sentAnnounce') == null) {
+		rescuePlugin.BuildLoginForm();
+		if(rescuePlugin.UseClientForm) {
+			network.on('connect', rescuePlugin.SendAnnounceToIRC);
+		}
+	} else {
+		rescuePlugin.BuildLoginForm(true);
+	}
 	if(rescuePlugin.UseClientForm) {
-		var network = kiwi.components.Network();
-		network.on('connect', rescuePlugin.SendAnnounceToIRC);
+		network.on('message:message', rescuePlugin.ParseInput);
 	}
 });

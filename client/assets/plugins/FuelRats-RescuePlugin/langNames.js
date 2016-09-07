@@ -21,7 +21,7 @@
 	var isoLangs = {
 		"ab":{
 			"name":"Abkhaz",
-			"nativeName":"Ð°Ò§ÑÑƒÐ°"
+			"nativeName":"аҧсуа"
 		},
 		"aa":{
 			"name":"Afar",
@@ -41,27 +41,27 @@
 		},
 		"am":{
 			"name":"Amharic",
-			"nativeName":"áŠ áˆ›áˆ­áŠ›"
+			"nativeName":"አማርኛ"
 		},
 		"ar":{
 			"name":"Arabic",
-			"nativeName":"Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©"
+			"nativeName":"العربية"
 		},
 		"an":{
 			"name":"Aragonese",
-			"nativeName":"AragonÃ©s"
+			"nativeName":"Aragonés"
 		},
 		"hy":{
 			"name":"Armenian",
-			"nativeName":"Õ€Õ¡ÕµÕ¥Ö€Õ¥Õ¶"
+			"nativeName":"Հայերեն"
 		},
 		"as":{
 			"name":"Assamese",
-			"nativeName":"à¦…à¦¸à¦®à§€à¦¯à¦¼à¦¾"
+			"nativeName":"অসমীয়া"
 		},
 		"av":{
 			"name":"Avaric",
-			"nativeName":"Ð°Ð²Ð°Ñ€ Ð¼Ð°Ñ†Ó€, Ð¼Ð°Ð³Ó€Ð°Ñ€ÑƒÐ» Ð¼Ð°Ñ†Ó€"
+			"nativeName":"авар мацӀ, магӀарул мацӀ"
 		},
 		"ae":{
 			"name":"Avestan",
@@ -73,7 +73,7 @@
 		},
 		"az":{
 			"name":"Azerbaijani",
-			"nativeName":"azÉ™rbaycan dili"
+			"nativeName":"azərbaycan dili"
 		},
 		"bm":{
 			"name":"Bambara",
@@ -81,7 +81,7 @@
 		},
 		"ba":{
 			"name":"Bashkir",
-			"nativeName":"Ð±Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚ Ñ‚ÐµÐ»Ðµ"
+			"nativeName":"башҡорт теле"
 		},
 		"eu":{
 			"name":"Basque",
@@ -89,15 +89,15 @@
 		},
 		"be":{
 			"name":"Belarusian",
-			"nativeName":"Ð‘ÐµÐ»Ð°Ñ€ÑƒÑÐºÐ°Ñ"
+			"nativeName":"Беларуская"
 		},
 		"bn":{
 			"name":"Bengali",
-			"nativeName":"à¦¬à¦¾à¦‚à¦²à¦¾"
+			"nativeName":"বাংলা"
 		},
 		"bh":{
 			"name":"Bihari",
-			"nativeName":"à¤­à¥‹à¤œà¤ªà¥à¤°à¥€"
+			"nativeName":"भोजपुरी"
 		},
 		"bi":{
 			"name":"Bislama",
@@ -113,15 +113,15 @@
 		},
 		"bg":{
 			"name":"Bulgarian",
-			"nativeName":"Ð±ÑŠÐ»Ð³Ð°Ñ€ÑÐºÐ¸ ÐµÐ·Ð¸Ðº"
+			"nativeName":"български език"
 		},
 		"my":{
 			"name":"Burmese",
-			"nativeName":"á€—á€™á€¬á€…á€¬"
+			"nativeName":"ဗမာစာ"
 		},
 		"ca":{
 			"name":"Catalan; Valencian",
-			"nativeName":"CatalÃ "
+			"nativeName":"Català"
 		},
 		"ch":{
 			"name":"Chamorro",
@@ -129,19 +129,19 @@
 		},
 		"ce":{
 			"name":"Chechen",
-			"nativeName":"Ð½Ð¾Ñ…Ñ‡Ð¸Ð¹Ð½ Ð¼Ð¾Ñ‚Ñ‚"
+			"nativeName":"нохчийн мотт"
 		},
 		"ny":{
 			"name":"Chichewa; Chewa; Nyanja",
-			"nativeName":"chiCheÅµa, chinyanja"
+			"nativeName":"chiCheŵa, chinyanja"
 		},
 		"zh":{
 			"name":"Chinese",
-			"nativeName":"ä¸­æ–‡ (ZhÅngwÃ©n), æ±‰è¯­, æ¼¢èªž"
+			"nativeName":"中文 (Zhōngwén), 汉语, 漢語"
 		},
 		"cv":{
 			"name":"Chuvash",
-			"nativeName":"Ñ‡Ó‘Ð²Ð°Ñˆ Ñ‡Ó—Ð»Ñ…Ð¸"
+			"nativeName":"чӑваш чӗлхи"
 		},
 		"kw":{
 			"name":"Cornish",
@@ -153,7 +153,7 @@
 		},
 		"cr":{
 			"name":"Cree",
-			"nativeName":"á“€á¦áƒá”­ááá£"
+			"nativeName":"ᓀᐦᐃᔭᐍᐏᐣ"
 		},
 		"hr":{
 			"name":"Croatian",
@@ -161,7 +161,7 @@
 		},
 		"cs":{
 			"name":"Czech",
-			"nativeName":"Äesky, ÄeÅ¡tina"
+			"nativeName":"česky, čeština"
 		},
 		"da":{
 			"name":"Danish",
@@ -169,7 +169,7 @@
 		},
 		"dv":{
 			"name":"Divehi; Dhivehi; Maldivian;",
-			"nativeName":"Þ‹Þ¨ÞˆÞ¬Þ€Þ¨"
+			"nativeName":"ދިވެހި"
 		},
 		"nl":{
 			"name":"Dutch",
@@ -189,11 +189,11 @@
 		},
 		"ee":{
 			"name":"Ewe",
-			"nativeName":"EÊ‹egbe"
+			"nativeName":"Eʋegbe"
 		},
 		"fo":{
 			"name":"Faroese",
-			"nativeName":"fÃ¸royskt"
+			"nativeName":"føroyskt"
 		},
 		"fj":{
 			"name":"Fijian",
@@ -205,7 +205,7 @@
 		},
 		"fr":{
 			"name":"French",
-			"nativeName":"franÃ§ais, langue franÃ§aise"
+			"nativeName":"français, langue française"
 		},
 		"ff":{
 			"name":"Fula; Fulah; Pulaar; Pular",
@@ -217,7 +217,7 @@
 		},
 		"ka":{
 			"name":"Georgian",
-			"nativeName":"áƒ¥áƒáƒ áƒ—áƒ£áƒšáƒ˜"
+			"nativeName":"ქართული"
 		},
 		"de":{
 			"name":"German",
@@ -225,27 +225,27 @@
 		},
 		"el":{
 			"name":"Greek, Modern",
-			"nativeName":"Î•Î»Î»Î·Î½Î¹ÎºÎ¬"
+			"nativeName":"Ελληνικά"
 		},
 		"gn":{
-			"name":"GuaranÃ­",
-			"nativeName":"AvaÃ±eáº½"
+			"name":"Guaraní",
+			"nativeName":"Avañeẽ"
 		},
 		"gu":{
 			"name":"Gujarati",
-			"nativeName":"àª—à«àªœàª°àª¾àª¤à«€"
+			"nativeName":"ગુજરાતી"
 		},
 		"ht":{
 			"name":"Haitian; Haitian Creole",
-			"nativeName":"KreyÃ²l ayisyen"
+			"nativeName":"Kreyòl ayisyen"
 		},
 		"ha":{
 			"name":"Hausa",
-			"nativeName":"Hausa, Ù‡ÙŽÙˆÙØ³ÙŽ"
+			"nativeName":"Hausa, هَوُسَ"
 		},
 		"he":{
 			"name":"Hebrew (modern)",
-			"nativeName":"×¢×‘×¨×™×ª"
+			"nativeName":"עברית"
 		},
 		"hz":{
 			"name":"Herero",
@@ -253,7 +253,7 @@
 		},
 		"hi":{
 			"name":"Hindi",
-			"nativeName":"à¤¹à¤¿à¤¨à¥à¤¦à¥€, à¤¹à¤¿à¤‚à¤¦à¥€"
+			"nativeName":"हिन्दी, हिंदी"
 		},
 		"ho":{
 			"name":"Hiri Motu",
@@ -281,11 +281,11 @@
 		},
 		"ig":{
 			"name":"Igbo",
-			"nativeName":"Asá»¥sá»¥ Igbo"
+			"nativeName":"Asụsụ Igbo"
 		},
 		"ik":{
 			"name":"Inupiaq",
-			"nativeName":"IÃ±upiaq, IÃ±upiatun"
+			"nativeName":"Iñupiaq, Iñupiatun"
 		},
 		"io":{
 			"name":"Ido",
@@ -293,7 +293,7 @@
 		},
 		"is":{
 			"name":"Icelandic",
-			"nativeName":"Ãslenska"
+			"nativeName":"Íslenska"
 		},
 		"it":{
 			"name":"Italian",
@@ -301,11 +301,11 @@
 		},
 		"iu":{
 			"name":"Inuktitut",
-			"nativeName":"áƒá“„á’ƒá‘Žá‘á‘¦"
+			"nativeName":"ᐃᓄᒃᑎᑐᑦ"
 		},
 		"ja":{
 			"name":"Japanese",
-			"nativeName":"æ—¥æœ¬èªž (ã«ã»ã‚“ã”ï¼ã«ã£ã½ã‚“ã”)"
+			"nativeName":"日本語 (にほんご／にっぽんご)"
 		},
 		"jv":{
 			"name":"Javanese",
@@ -317,7 +317,7 @@
 		},
 		"kn":{
 			"name":"Kannada",
-			"nativeName":"à²•à²¨à³à²¨à²¡"
+			"nativeName":"ಕನ್ನಡ"
 		},
 		"kr":{
 			"name":"Kanuri",
@@ -325,19 +325,19 @@
 		},
 		"ks":{
 			"name":"Kashmiri",
-			"nativeName":"à¤•à¤¶à¥à¤®à¥€à¤°à¥€, ÙƒØ´Ù…ÙŠØ±ÙŠâ€Ž"
+			"nativeName":"कश्मीरी, كشميري‎"
 		},
 		"kk":{
 			"name":"Kazakh",
-			"nativeName":"ÒšÐ°Ð·Ð°Ò› Ñ‚Ñ–Ð»Ñ–"
+			"nativeName":"Қазақ тілі"
 		},
 		"km":{
 			"name":"Khmer",
-			"nativeName":"áž—áž¶ážŸáž¶ážáŸ’áž˜áŸ‚ážš"
+			"nativeName":"ភាសាខ្មែរ"
 		},
 		"ki":{
 			"name":"Kikuyu, Gikuyu",
-			"nativeName":"GÄ©kÅ©yÅ©"
+			"nativeName":"Gĩkũyũ"
 		},
 		"rw":{
 			"name":"Kinyarwanda",
@@ -345,11 +345,11 @@
 		},
 		"ky":{
 			"name":"Kirghiz, Kyrgyz",
-			"nativeName":"ÐºÑ‹Ñ€Ð³Ñ‹Ð· Ñ‚Ð¸Ð»Ð¸"
+			"nativeName":"кыргыз тили"
 		},
 		"kv":{
 			"name":"Komi",
-			"nativeName":"ÐºÐ¾Ð¼Ð¸ ÐºÑ‹Ð²"
+			"nativeName":"коми кыв"
 		},
 		"kg":{
 			"name":"Kongo",
@@ -357,11 +357,11 @@
 		},
 		"ko":{
 			"name":"Korean",
-			"nativeName":"í•œêµ­ì–´ (éŸ“åœ‹èªž), ì¡°ì„ ë§ (æœé®®èªž)"
+			"nativeName":"한국어 (韓國語), 조선말 (朝鮮語)"
 		},
 		"ku":{
 			"name":"Kurdish",
-			"nativeName":"KurdÃ®, ÙƒÙˆØ±Ø¯ÛŒâ€Ž"
+			"nativeName":"Kurdî, كوردی‎"
 		},
 		"kj":{
 			"name":"Kwanyama, Kuanyama",
@@ -373,7 +373,7 @@
 		},
 		"lb":{
 			"name":"Luxembourgish, Letzeburgesch",
-			"nativeName":"LÃ«tzebuergesch"
+			"nativeName":"Lëtzebuergesch"
 		},
 		"lg":{
 			"name":"Luganda",
@@ -385,15 +385,15 @@
 		},
 		"ln":{
 			"name":"Lingala",
-			"nativeName":"LingÃ¡la"
+			"nativeName":"Lingála"
 		},
 		"lo":{
 			"name":"Lao",
-			"nativeName":"àºžàº²àºªàº²àº¥àº²àº§"
+			"nativeName":"ພາສາລາວ"
 		},
 		"lt":{
 			"name":"Lithuanian",
-			"nativeName":"lietuviÅ³ kalba"
+			"nativeName":"lietuvių kalba"
 		},
 		"lu":{
 			"name":"Luba-Katanga",
@@ -401,7 +401,7 @@
 		},
 		"lv":{
 			"name":"Latvian",
-			"nativeName":"latvieÅ¡u valoda"
+			"nativeName":"latviešu valoda"
 		},
 		"gv":{
 			"name":"Manx",
@@ -409,7 +409,7 @@
 		},
 		"mk":{
 			"name":"Macedonian",
-			"nativeName":"Ð¼Ð°ÐºÐµÐ´Ð¾Ð½ÑÐºÐ¸ Ñ˜Ð°Ð·Ð¸Ðº"
+			"nativeName":"македонски јазик"
 		},
 		"mg":{
 			"name":"Malagasy",
@@ -417,43 +417,43 @@
 		},
 		"ms":{
 			"name":"Malay",
-			"nativeName":"bahasa Melayu, Ø¨Ù‡Ø§Ø³ Ù…Ù„Ø§ÙŠÙˆâ€Ž"
+			"nativeName":"bahasa Melayu, بهاس ملايو‎"
 		},
 		"ml":{
 			"name":"Malayalam",
-			"nativeName":"à´®à´²à´¯à´¾à´³à´‚"
+			"nativeName":"മലയാളം"
 		},
 		"mt":{
 			"name":"Maltese",
 			"nativeName":"Malti"
 		},
 		"mi":{
-			"name":"MÄori",
-			"nativeName":"te reo MÄori"
+			"name":"Māori",
+			"nativeName":"te reo Māori"
 		},
 		"mr":{
-			"name":"Marathi (MarÄá¹­hÄ«)",
-			"nativeName":"à¤®à¤°à¤¾à¤ à¥€"
+			"name":"Marathi (Marāṭhī)",
+			"nativeName":"मराठी"
 		},
 		"mh":{
 			"name":"Marshallese",
-			"nativeName":"Kajin MÌ§ajeÄ¼"
+			"nativeName":"Kajin M̧ajeļ"
 		},
 		"mn":{
 			"name":"Mongolian",
-			"nativeName":"Ð¼Ð¾Ð½Ð³Ð¾Ð»"
+			"nativeName":"монгол"
 		},
 		"na":{
 			"name":"Nauru",
-			"nativeName":"EkakairÅ© Naoero"
+			"nativeName":"Ekakairũ Naoero"
 		},
 		"nv":{
 			"name":"Navajo, Navaho",
-			"nativeName":"DinÃ© bizaad, DinÃ©kÊ¼ehÇ°Ã­"
+			"nativeName":"Diné bizaad, Dinékʼehǰí"
 		},
 		"nb":{
-			"name":"Norwegian BokmÃ¥l",
-			"nativeName":"Norsk bokmÃ¥l"
+			"name":"Norwegian Bokmål",
+			"nativeName":"Norsk bokmål"
 		},
 		"nd":{
 			"name":"North Ndebele",
@@ -461,7 +461,7 @@
 		},
 		"ne":{
 			"name":"Nepali",
-			"nativeName":"à¤¨à¥‡à¤ªà¤¾à¤²à¥€"
+			"nativeName":"नेपाली"
 		},
 		"ng":{
 			"name":"Ndonga",
@@ -477,7 +477,7 @@
 		},
 		"ii":{
 			"name":"Nuosu",
-			"nativeName":"ê†ˆêŒ ê’¿ Nuosuhxop"
+			"nativeName":"ꆈꌠ꒿ Nuosuhxop"
 		},
 		"nr":{
 			"name":"South Ndebele",
@@ -489,11 +489,11 @@
 		},
 		"oj":{
 			"name":"Ojibwe, Ojibwa",
-			"nativeName":"áŠá“‚á”‘á“ˆá¯á’§áŽá“"
+			"nativeName":"ᐊᓂᔑᓈᐯᒧᐎᓐ"
 		},
 		"cu":{
 			"name":"Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic",
-			"nativeName":"Ñ©Ð·Ñ‹ÐºÑŠ ÑÐ»Ð¾Ð²Ñ£Ð½ÑŒÑÐºÑŠ"
+			"nativeName":"ѩзыкъ словѣньскъ"
 		},
 		"om":{
 			"name":"Oromo",
@@ -501,23 +501,23 @@
 		},
 		"or":{
 			"name":"Oriya",
-			"nativeName":"à¬“à¬¡à¬¼à¬¿à¬†"
+			"nativeName":"ଓଡ଼ିଆ"
 		},
 		"os":{
 			"name":"Ossetian, Ossetic",
-			"nativeName":"Ð¸Ñ€Ð¾Ð½ Ã¦Ð²Ð·Ð°Ð³"
+			"nativeName":"ирон æвзаг"
 		},
 		"pa":{
 			"name":"Panjabi, Punjabi",
-			"nativeName":"à¨ªà©°à¨œà¨¾à¨¬à©€, Ù¾Ù†Ø¬Ø§Ø¨ÛŒâ€Ž"
+			"nativeName":"ਪੰਜਾਬੀ, پنجابی‎"
 		},
 		"pi":{
-			"name":"PÄli",
-			"nativeName":"à¤ªà¤¾à¤´à¤¿"
+			"name":"Pāli",
+			"nativeName":"पाऴि"
 		},
 		"fa":{
 			"name":"Persian",
-			"nativeName":"ÙØ§Ø±Ø³ÛŒ"
+			"nativeName":"فارسی"
 		},
 		"pl":{
 			"name":"Polish",
@@ -525,11 +525,11 @@
 		},
 		"ps":{
 			"name":"Pashto, Pushto",
-			"nativeName":"Ù¾ÚšØªÙˆ"
+			"nativeName":"پښتو"
 		},
 		"pt":{
 			"name":"Portuguese",
-			"nativeName":"PortuguÃªs"
+			"nativeName":"Português"
 		},
 		"qu":{
 			"name":"Quechua",
@@ -545,15 +545,15 @@
 		},
 		"ro":{
 			"name":"Romanian, Moldavian, Moldovan",
-			"nativeName":"romÃ¢nÄƒ"
+			"nativeName":"română"
 		},
 		"ru":{
 			"name":"Russian",
-			"nativeName":"Ñ€ÑƒÑÑÐºÐ¸Ð¹ ÑÐ·Ñ‹Ðº"
+			"nativeName":"русский язык"
 		},
 		"sa":{
-			"name":"Sanskrit (Saá¹ská¹›ta)",
-			"nativeName":"à¤¸à¤‚à¤¸à¥à¤•à¥ƒà¤¤à¤®à¥"
+			"name":"Sanskrit (Saṁskṛta)",
+			"nativeName":"संस्कृतम्"
 		},
 		"sc":{
 			"name":"Sardinian",
@@ -561,11 +561,11 @@
 		},
 		"sd":{
 			"name":"Sindhi",
-			"nativeName":"à¤¸à¤¿à¤¨à¥à¤§à¥€, Ø³Ù†ÚŒÙŠØŒ Ø³Ù†Ø¯Ú¾ÛŒâ€Ž"
+			"nativeName":"सिन्धी, سنڌي، سندھی‎"
 		},
 		"se":{
 			"name":"Northern Sami",
-			"nativeName":"DavvisÃ¡megiella"
+			"nativeName":"Davvisámegiella"
 		},
 		"sm":{
 			"name":"Samoan",
@@ -573,15 +573,15 @@
 		},
 		"sg":{
 			"name":"Sango",
-			"nativeName":"yÃ¢ngÃ¢ tÃ® sÃ¤ngÃ¶"
+			"nativeName":"yângâ tî sängö"
 		},
 		"sr":{
 			"name":"Serbian",
-			"nativeName":"ÑÑ€Ð¿ÑÐºÐ¸ Ñ˜ÐµÐ·Ð¸Ðº"
+			"nativeName":"српски језик"
 		},
 		"gd":{
 			"name":"Scottish Gaelic; Gaelic",
-			"nativeName":"GÃ idhlig"
+			"nativeName":"Gàidhlig"
 		},
 		"sn":{
 			"name":"Shona",
@@ -589,15 +589,15 @@
 		},
 		"si":{
 			"name":"Sinhala, Sinhalese",
-			"nativeName":"à·ƒà·’à¶‚à·„à¶½"
+			"nativeName":"සිංහල"
 		},
 		"sk":{
 			"name":"Slovak",
-			"nativeName":"slovenÄina"
+			"nativeName":"slovenčina"
 		},
 		"sl":{
 			"name":"Slovene",
-			"nativeName":"slovenÅ¡Äina"
+			"nativeName":"slovenščina"
 		},
 		"so":{
 			"name":"Somali",
@@ -609,7 +609,7 @@
 		},
 		"es":{
 			"name":"Spanish; Castilian",
-			"nativeName":"espaÃ±ol, castellano"
+			"nativeName":"español, castellano"
 		},
 		"su":{
 			"name":"Sundanese",
@@ -629,35 +629,35 @@
 		},
 		"ta":{
 			"name":"Tamil",
-			"nativeName":"à®¤à®®à®¿à®´à¯"
+			"nativeName":"தமிழ்"
 		},
 		"te":{
 			"name":"Telugu",
-			"nativeName":"à°¤à±†à°²à±à°—à±"
+			"nativeName":"తెలుగు"
 		},
 		"tg":{
 			"name":"Tajik",
-			"nativeName":"Ñ‚Ð¾Ò·Ð¸ÐºÓ£, toÄŸikÄ«, ØªØ§Ø¬ÛŒÚ©ÛŒâ€Ž"
+			"nativeName":"тоҷикӣ, toğikī, تاجیکی‎"
 		},
 		"th":{
 			"name":"Thai",
-			"nativeName":"à¹„à¸—à¸¢"
+			"nativeName":"ไทย"
 		},
 		"ti":{
 			"name":"Tigrinya",
-			"nativeName":"á‰µáŒáˆ­áŠ›"
+			"nativeName":"ትግርኛ"
 		},
 		"bo":{
 			"name":"Tibetan Standard, Tibetan, Central",
-			"nativeName":"à½–à½¼à½‘à¼‹à½¡à½²à½‚"
+			"nativeName":"བོད་ཡིག"
 		},
 		"tk":{
 			"name":"Turkmen",
-			"nativeName":"TÃ¼rkmen, Ð¢Ò¯Ñ€ÐºÐ¼ÐµÐ½"
+			"nativeName":"Türkmen, Түркмен"
 		},
 		"tl":{
 			"name":"Tagalog",
-			"nativeName":"Wikang Tagalog, áœáœ’áœƒáœ…áœ” áœ†áœ„áœŽáœ“áœ„áœ”"
+			"nativeName":"Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔"
 		},
 		"tn":{
 			"name":"Tswana",
@@ -669,7 +669,7 @@
 		},
 		"tr":{
 			"name":"Turkish",
-			"nativeName":"TÃ¼rkÃ§e"
+			"nativeName":"Türkçe"
 		},
 		"ts":{
 			"name":"Tsonga",
@@ -677,7 +677,7 @@
 		},
 		"tt":{
 			"name":"Tatar",
-			"nativeName":"Ñ‚Ð°Ñ‚Ð°Ñ€Ñ‡Ð°, tatarÃ§a, ØªØ§ØªØ§Ø±Ú†Ø§â€Ž"
+			"nativeName":"татарча, tatarça, تاتارچا‎"
 		},
 		"tw":{
 			"name":"Twi",
@@ -689,31 +689,31 @@
 		},
 		"ug":{
 			"name":"Uighur, Uyghur",
-			"nativeName":"UyÆ£urqÉ™, Ø¦Û‡ÙŠØºÛ‡Ø±Ú†Û•â€Ž"
+			"nativeName":"Uyƣurqə, ئۇيغۇرچە‎"
 		},
 		"uk":{
 			"name":"Ukrainian",
-			"nativeName":"ÑƒÐºÑ€Ð°Ñ—Ð½ÑÑŒÐºÐ°"
+			"nativeName":"українська"
 		},
 		"ur":{
 			"name":"Urdu",
-			"nativeName":"Ø§Ø±Ø¯Ùˆ"
+			"nativeName":"اردو"
 		},
 		"uz":{
 			"name":"Uzbek",
-			"nativeName":"zbek, ÐŽÐ·Ð±ÐµÐº, Ø£Û‡Ø²Ø¨ÛÙƒâ€Ž"
+			"nativeName":"zbek, Ўзбек, أۇزبېك‎"
 		},
 		"ve":{
 			"name":"Venda",
-			"nativeName":"Tshivená¸“a"
+			"nativeName":"Tshivenḓa"
 		},
 		"vi":{
 			"name":"Vietnamese",
-			"nativeName":"Tiáº¿ng Viá»‡t"
+			"nativeName":"Tiếng Việt"
 		},
 		"vo":{
-			"name":"VolapÃ¼k",
-			"nativeName":"VolapÃ¼k"
+			"name":"Volapük",
+			"nativeName":"Volapük"
 		},
 		"wa":{
 			"name":"Walloon",
@@ -737,15 +737,15 @@
 		},
 		"yi":{
 			"name":"Yiddish",
-			"nativeName":"×™×™Ö´×“×™×©"
+			"nativeName":"ייִדיש"
 		},
 		"yo":{
 			"name":"Yoruba",
-			"nativeName":"YorÃ¹bÃ¡"
+			"nativeName":"Yorùbá"
 		},
 		"za":{
 			"name":"Zhuang, Chuang",
-			"nativeName":"SaÉ¯ cueÅ‹Æ…, Saw cuengh"
+			"nativeName":"Saɯ cueŋƅ, Saw cuengh"
 		}
 	}
 	
@@ -762,4 +762,3 @@
 	window.getLanguageName = getLanguageName;
 	window.getLanguageNativeName = getLanguageNativeName;
 })();
-
