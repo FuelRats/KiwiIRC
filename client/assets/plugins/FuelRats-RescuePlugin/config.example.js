@@ -268,15 +268,15 @@ var rescuePlugin = {
 			if(ratList.length == 0) {
 				stat.text('Wait for rat assignment');
 			} else {
-				if(!rescuePlugin.RescueInfo.FriendReceived) {
-					stat.text('Please send FR to rats');
-				} else if(!rescuePlugin.RescueInfo.WingReceived) {
-					stat.text('Please send WR to rats');
-				} else if(!rescuePlugin.RescueInfo.BeaconReceieved) {
-					stat.text('Please activate beacon');
-				} else {
+				//if(!rescuePlugin.RescueInfo.FriendReceived) {
+				//	stat.text('Please send FR to rats');
+				//} else if(!rescuePlugin.RescueInfo.WingReceived) {
+				//	stat.text('Please send WR to rats');
+				//} else if(!rescuePlugin.RescueInfo.BeaconReceieved) {
+				//	stat.text('Please activate beacon');
+				//} else {
 					stat.text('Wait for rescue!');
-				}
+				//}
 			}
 		}
 	},
