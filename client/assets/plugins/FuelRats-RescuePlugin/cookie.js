@@ -16,7 +16,7 @@ function GetCookie(name) {
 	} catch (e) {
 		;
 	}
-	return null;
+	return "null";
 }
 
 function SetCookie(name, value, expire) {
@@ -32,7 +32,7 @@ function SetCookie(name, value, expire) {
 
 function CanSetCookies() {
 	SetCookie('_frrpCookieTest', 'true', 0);
-	var can = GetCookie('_frrpCookieTest') != null;
+	var can = GetCookie('_frrpCookieTest') != "null";
 	DelCookie('_frrpgCookieTest');
 	return can;
 }
