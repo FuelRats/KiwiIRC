@@ -383,7 +383,7 @@ var rescuePlugin = {
 				rescuePlugin.RescueInfo.FriendReceived = false;
 			}
 
-			if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0) {
+			if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0 || msg.search(/client/i) >= 0) {
 				if(msg.search(/fr\+/i) >= 0) {
                          	       rescuePlugin.RescueInfo.FriendReceived = true;
 	                        } else if(msg.search(/fr-/i) >= 0) {
@@ -398,7 +398,7 @@ var rescuePlugin = {
 					rescuePlugin.RescueInfo.WingReceived = false;
 				}
 
-				if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0) {
+				if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0 || msg.search(/client/i) >= 0) {
 	                                if(msg.search(/wr\+/i) >= 0) {
         	                               rescuePlugin.RescueInfo.WingReceived = true;
                 	                } else if(msg.search(/wr-/i) >= 0) {
@@ -415,7 +415,7 @@ var rescuePlugin = {
 					rescuePlugin.RescueInfo.BeaconReceived = false;
 				}
 
-				if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0) {
+				if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0 || msg.search(/client/i) >= 0) {
 	                                if(msg.search(/bc\+/i) >= 0) {
         	                               rescuePlugin.RescueInfo.BeaconReceived = true;
                 	                } else if(msg.search(/bc-/i) >= 0) {
@@ -446,3 +446,7 @@ jQuery(document).ready(function() {
 		network.on('message:message', rescuePlugin.ParseInput);
 	}
 });
+
+function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+jQuery(document).on("keydown", disableF5);
+
