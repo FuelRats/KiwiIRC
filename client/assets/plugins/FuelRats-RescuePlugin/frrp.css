@@ -35,3 +35,7 @@
 {
 	bottom: 150px !important;
 }
+
+#kiwi span.part {
+	display: none !important;
+}

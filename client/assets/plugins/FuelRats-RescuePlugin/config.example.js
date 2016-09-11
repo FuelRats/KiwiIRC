@@ -227,7 +227,7 @@ var rescuePlugin = {
 				}
 				rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.UpdateRescueInfo, 1000);
 				rescuePlugin.UpdateRescueGUI();
-				SetCookie('sentAnnounce', rescuePlugin.RescueInfo.Id, 3600 * 1000);
+				SetCookie('sentAnnounce', rescuePlugin.RescueInfo.Id, 3600 * 1000 * 2); // 2 hours
 				if(typeof onLoad != undefined && typeof onLoad == 'function') {
 					onLoad();
 				}
@@ -382,6 +382,14 @@ var rescuePlugin = {
 			} else if(msg == 'fr-') {
 				rescuePlugin.RescueInfo.FriendReceived = false;
 			}
+
+			if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0) {
+				if(msg.search(/fr\+/i) >= 0) {
+                         	       rescuePlugin.RescueInfo.FriendReceived = true;
+	                        } else if(msg.search(/fr-/i) >= 0) {
+        	                        rescuePlugin.RescueInfo.FriendReceived = false;
+                	        }
+			}
 		} else if(msg.search(/wr./i) >= 0) {
 			if(rescuePlugin.RescueInfo.FriendReceived) {
 				if(msg == 'wr+') {
@@ -389,6 +397,15 @@ var rescuePlugin = {
 				} else if(msg == 'wr-') {
 					rescuePlugin.RescueInfo.WingReceived = false;
 				}
+
+				if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0) {
+	                                if(msg.search(/wr\+/i) >= 0) {
+        	                               rescuePlugin.RescueInfo.WingReceived = true;
+                	                } else if(msg.search(/wr-/i) >= 0) {
+                        	                rescuePlugin.RescueInfo.WingReceived = false;
+                                	}
+	                        }
+
 			}
 		} else if(msg.search(/bc./i) >= 0) {
 			if(rescuePlugin.RescueInfo.FriendReceived && rescuePlugin.RescueInfo.WingReceived) {
@@ -397,9 +414,18 @@ var rescuePlugin = {
 				} else if(msg == 'bc-') {
 					rescuePlugin.RescueInfo.BeaconReceived = false;
 				}
+
+				if(msg.search(rescuePlugin.CommanderInfo.IRCNick.toLowerCase()) >= 0) {
+	                                if(msg.search(/bc\+/i) >= 0) {
+        	                               rescuePlugin.RescueInfo.BeaconReceived = true;
+                	                } else if(msg.search(/bc-/i) >= 0) {
+                        	                rescuePlugin.RescueInfo.BeaconReceived = false;
+                                	}
+	                        }
+
 			}
 		} else {
-			console.log(data);
+			// Everything else
 		}
 	}
 };
