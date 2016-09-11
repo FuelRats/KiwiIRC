@@ -11,3 +11,12 @@ kiwi.log
 kiwiirc.pid
 config.js
 config.js~
+cert.pem
+cert3.pem
+client/announce.php
+client/assets/img/fuelrats.png
+client/assets/libs/langNames.js
+client/test_announce.php
+privkey3.pem
+server.key
+*~
