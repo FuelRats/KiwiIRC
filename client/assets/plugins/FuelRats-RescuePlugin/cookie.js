@@ -39,4 +39,10 @@ function CanSetCookies() {
 
 function DelCookie(name) {
 	document.cookie = CookieBase + name + '=0; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+	jQuery.ajax({
+		url: '/kiwi/assets/plugins/FuelRats-RescuePlugin/fuelrats.png',
+		async: false,
+		success: function() { }
+	});
 }

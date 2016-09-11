@@ -433,11 +433,12 @@ var rescuePlugin = {
 jQuery(document).ready(function() {
 	var network = kiwi.components.Network();
 
+	if(rescuePlugin.UseClientForm) {
+		network.on('connect', rescuePlugin.SendAnnounceToIRC);
+	}
+
 	if(GetCookie('sentAnnounce') == "null") {
 		rescuePlugin.BuildLoginForm();
-		if(rescuePlugin.UseClientForm) {
-			network.on('connect', rescuePlugin.SendAnnounceToIRC);
-		}
 	} else {
 		rescuePlugin.BuildLoginForm(true);
 	}
