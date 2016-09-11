@@ -189,6 +189,8 @@ var rescuePlugin = {
 		jQuery('.channel').hide();
 		jQuery('.show_more').hide();
 		jQuery('.more').hide();
+		jQuery('.startup').hide();
+		
 		jQuery('#kiwi .server_select button').on('click', rescuePlugin.SetCommanderInfo);
 	},
 	GetInitialRescueInformation: function(rescueId, onLoad) {
