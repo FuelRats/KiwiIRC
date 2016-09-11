@@ -30,9 +30,9 @@ var rescuePlugin = {
 		UnidentifiedRats: {},
 		FirstLimpet: null,
 		Data: null,
-		FriendReceieved: false,
-		WingReceieved: false,
-		BeaconReceieved: false
+		FriendReceived: false,
+		WingReceived: false,
+		BeaconReceived: false
 	},
 	SetCommanderInfo: function() {
         	function sanitizeCMDRName(cmdrName) {
@@ -291,7 +291,7 @@ var rescuePlugin = {
 					stat.text('Please send FR to rats');
 				} else if(!rescuePlugin.RescueInfo.WingReceived) {
 					stat.text('Please send WR to rats');
-				} else if(!rescuePlugin.RescueInfo.BeaconReceieved) {
+				} else if(!rescuePlugin.RescueInfo.BeaconReceived) {
 					stat.text('Please activate beacon');
 				} else {
 					stat.text('Wait for rescue!');
@@ -347,8 +347,58 @@ var rescuePlugin = {
 		}
 	},
 	CachedRats: {},
+	IRCRats: {},
 	ParseInput: function(data) {
-		console.log(data);
+		if(data.nick === rescuePlugin.CommanderInfo.IRCNick || data.nick === 'RatMama[BOT]' || data.nick === 'MechaSqueak[BOT]') {
+			return;
+		}
+
+		if(data.type != 'message') { return; }
+
+		if(rescuePlugin.IRCRats[data.nick] == undefined) {
+			jQuery.ajax({
+				url: rescuePlugin.ApiUrl + '/nicknames/search/' + encodeURIComponent(data.nick),
+				success: function(d) {
+					rescuePlugin.IRCRats[data.nick] = d.data;
+					rescuePlugin.ParseInput(data);
+				}
+			});	
+		} else {
+			if(rescuePlugin.IRCRats[data.nick].length > 0) {
+				var rat = rescuePlugin.IRCRats[data.nick][0].rats[0];
+				if(rescuePlugin.RescueInfo.Rats.hasOwnProperty(rat.id)) {
+					rescuePlugin.HandleRatMessage(data);
+				}
+			}
+		}
+	},
+	HandleRatMessage: function(data) {
+		var msg = data.msg.toLowerCase().trim();
+		if(msg.search(/fr./i) >= 0) {
+			if(msg == 'fr+') {
+				rescuePlugin.RescueInfo.FriendReceived = true;
+			} else if(msg == 'fr-') {
+				rescuePlugin.RescueInfo.FriendReceived = false;
+			}
+		} else if(msg.search(/wr./i) >= 0) {
+			if(rescuePlugin.RescueInfo.FriendReceived) {
+				if(msg == 'wr+') {
+					rescuePlugin.RescueInfo.WingReceived = true;
+				} else if(msg == 'wr-') {
+					rescuePlugin.RescueInfo.WingReceived = false;
+				}
+			}
+		} else if(msg.search(/bc./i) >= 0) {
+			if(rescuePlugin.RescueInfo.FriendReceived && rescuePlugin.RescueInfo.WingReceived) {
+				if(msg == 'bc+') {
+					rescuePlugin.RescueInfo.BeaconReceived = true;
+				} else if(msg == 'bc-') {
+					rescuePlugin.RescueInfo.BeaconReceived = false;
+				}
+			}
+		} else {
+			console.log(data);
+		}
 	}
 };
 
