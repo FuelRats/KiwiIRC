@@ -1,6 +1,6 @@
 var rescuePlugin = {
-        AnnouncerUrl: '',
-        ApiUrl: '',
+        AnnouncerUrl: rescueConfig.AnnouncerUrl,
+        ApiUrl: rescueConfig.ApiUrl,
 	UseClientForm: true,
 	CommanderInfo: {
 		CMDRName: null,
@@ -254,8 +254,9 @@ var rescuePlugin = {
 			if(rescuePlugin.UpdateTimer != undefined) {
 				clearTimeout(rescuePlugin.UpdateTimer);
 			}
-			rescuePlugin.UpdateTimer = setTimeout(function() { jQuery('.closedCase').parent().fadeOut('slow'); }, 10000);
+			//rescuePlugin.UpdateTimer = setTimeout(function() { jQuery('.closedCase').parent().fadeOut('slow'); }, 10000);
 		} else {
+			win.show();
 			var cmdr = jQuery('<div class="cmdrName">CMDR ' + rescuePlugin.RescueInfo.Client + '</div>');
 			win.append(cmdr);
 

@@ -19,4 +19,4 @@ client/assets/libs/langNames.js
 client/test_announce.php
 privkey3.pem
 server.key
-*~
+rescue.config.js

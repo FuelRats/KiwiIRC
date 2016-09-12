@@ -1,0 +1,4 @@
+var rescueConfig = {
+	AnnouncerUrl: '',
+	ApiUrl: '',
+};
