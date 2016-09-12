@@ -75,9 +75,13 @@ var rescuePlugin = {
 
 		rescuePlugin.CommanderInfo.ExtraData = 
 			(navigator.language ? 
-			'Language: ' + getLanguageName(navigator.language) + ' (' + navigator.language + ')' : 
-			'x') +
-			' - IRC Nickname: ' + rescuePlugin.CommanderInfo.IRCNick;
+				'Language: ' + getLanguageName(navigator.language) + ' (' + navigator.language + ')' : 
+				'x'
+			) + 
+			(rescuePlugin.CommanderInfo.CMDRName != rescuePlugin.CommanderInfo.IRCNick ? 
+				' - IRC Nickname: ' + rescuePlugin.CommanderInfo.IRCNick : 
+				''
+			);
 	},
 	SendAnnounceToIRC: function() {
 		if(GetCookie('sentAnnounce') != "null") {
