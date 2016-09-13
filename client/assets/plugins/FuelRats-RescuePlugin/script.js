@@ -235,6 +235,7 @@ var rescuePlugin = {
 						rescuePlugin.RescueInfo.Rats[rescue.rats[i]] = rescuePlugin.FetchRatInfo(rescue.rats[i]);
 					}
 					jQuery('#frrpRescueWindow').appendTo('.right-bar-content');
+					jQuery('.memberlists').css('bottom', '155px')
 				} else {
 					setTimeout(rescuePlugin.SendAnnounceToIRC, 1000);
 				}
