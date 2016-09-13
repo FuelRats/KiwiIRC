@@ -394,9 +394,9 @@ var rescuePlugin = {
 	HandleRatMessage: function(data) {
 		var msg = data.msg.toLowerCase().trim();
 		if(msg.search(/fr./i) >= 0) {
-			if(msg == 'fr+') {
+			if(msg.search('fr+') >= 0) {
 				rescuePlugin.RescueInfo.FriendReceived = true;
-			} else if(msg == 'fr-') {
+			} else if(msg.search('fr-') >= 0) {
 				rescuePlugin.RescueInfo.FriendReceived = false;
 			}
 
@@ -407,11 +407,12 @@ var rescuePlugin = {
         	                        rescuePlugin.RescueInfo.FriendReceived = false;
                 	        }
 			}
-		} else if(msg.search(/wr./i) >= 0) {
+		} 
+		if(msg.search(/wr./i) >= 0) {
 			if(rescuePlugin.RescueInfo.FriendReceived) {
-				if(msg == 'wr+') {
+				if(msg.search('wr+') >= 0) {
 					rescuePlugin.RescueInfo.WingReceived = true;
-				} else if(msg == 'wr-') {
+				} else if(msg.search('wr-') >= 0) {
 					rescuePlugin.RescueInfo.WingReceived = false;
 				}
 
@@ -424,11 +425,12 @@ var rescuePlugin = {
 	                        }
 
 			}
-		} else if(msg.search(/bc./i) >= 0) {
+		} 
+		if(msg.search(/bc./i) >= 0) {
 			if(rescuePlugin.RescueInfo.FriendReceived && rescuePlugin.RescueInfo.WingReceived) {
-				if(msg == 'bc+') {
+				if(msg.search('bc+') >= 0) {
 					rescuePlugin.RescueInfo.BeaconReceived = true;
-				} else if(msg == 'bc-') {
+				} else if(msg.search('bc-') >= 0) {
 					rescuePlugin.RescueInfo.BeaconReceived = false;
 				}
 
@@ -441,8 +443,6 @@ var rescuePlugin = {
 	                        }
 
 			}
-		} else {
-			// Everything else
 		}
 	}
 };
