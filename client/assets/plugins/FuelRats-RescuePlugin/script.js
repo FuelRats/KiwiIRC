@@ -35,6 +35,7 @@ var rescuePlugin = {
 		BeaconReceived: false
 	},
 	SetCommanderInfo: function() {
+		SetCookie('LoginTimeStamp', new Date().getTime());
         	function sanitizeCMDRName(cmdrName) {
                 	cmdrName = cmdrName.replace(/^cmdr/i,'').trim();
 			cmdrName = transliterate(cmdrName);
@@ -84,6 +85,17 @@ var rescuePlugin = {
 			);
 	},
 	SendAnnounceToIRC: function() {
+
+		var timeCheck = new Date(parseInt(GetCookie('LoginTimeStamp')));
+		var diff = (new Date().getTime() - timeCheck.getTime()) / 1000;
+		if(diff >= 30) {
+			window.onbeforeunload = null;
+			top.location.href = 'https://www.fuelrats.com/i-need-fuel';
+			if(rescuePlugin.UpdateTimer != undefined) {
+				clearTimeout(rescuePlugin.UpdateTimer);
+			}
+			return;
+		}
 		if(GetCookie('sentAnnounce') != "null") {
 			rescuePlugin.GetInitialRescueInformation(GetCookie('sentAnnounce'));
 			return;
