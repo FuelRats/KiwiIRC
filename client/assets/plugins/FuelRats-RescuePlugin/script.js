@@ -11,6 +11,7 @@ var rescuePlugin = {
 		RescueId: null,
 		ExtraData: null
 	},
+        UpdateInterval: 5000,
 	UpdateTimer: null,
 	RescueInfo: {
 		Id: null,
@@ -119,7 +120,7 @@ var rescuePlugin = {
 			if(rescuePlugin.UpdateTimer != undefined) {
 				clearTimeout(rescuePlugin.UpdateTimer);
 			}
-			rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.GetInitialRescueInformation, 3000);
+			rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.GetInitialRescueInformation, rescuePlugin.UpdateInterval);
 		}
 	},
 	BuildLoginForm: function(loadFromOngoingRescue) {
@@ -242,7 +243,7 @@ var rescuePlugin = {
 				if(rescuePlugin.UpdateTimer != undefined) {
 					clearTimeout(rescuePlugin.UpdateTimer);
 				}
-				rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.UpdateRescueInfo, 1000);
+				rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.UpdateRescueInfo, rescuePlugin.UpdateInterval);
 				rescuePlugin.UpdateRescueGUI();
 				SetCookie('sentAnnounce', rescuePlugin.RescueInfo.Id, 3600 * 1000 * 2); // 2 hours
 				if(typeof onLoad != undefined && typeof onLoad == 'function') {
@@ -253,7 +254,7 @@ var rescuePlugin = {
 				if(rescuePlugin.UpdateTimer != undefined) {
 					clearTimeout(rescuePlugin.UpdateTimer);
 				}
-				rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.GetInitialRescueInformation, 1000); 
+				rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.GetInitialRescueInformation, rescuePlugin.UpdateInterval); 
 			}
 		});
 	},
@@ -343,7 +344,7 @@ var rescuePlugin = {
 				if(rescuePlugin.UpdateTimer != undefined) {
 					clearTimeout(rescuePlugin.UpdateTimer);
 				}
-				rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.UpdateRescueInfo, 1000);
+				rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.UpdateRescueInfo,rescuePlugin.UpdateInterval );
 			},
 			error: function() { 
 				if(rescuePlugin.UpdateTimer != undefined) {
