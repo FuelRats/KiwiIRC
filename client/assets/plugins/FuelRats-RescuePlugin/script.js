@@ -86,7 +86,15 @@ var rescuePlugin = {
 			);
 	},
 	SendAnnounceToIRC: function() {
-
+		if(GetCookie('LoginTimeStamp') == 'null') {
+			DelCookie('LoginTimeStamp');
+			window.onbeforeunload = null;
+			top.location.href = 'https://www.fuelrats.com/i-need-fuel';
+			if(rescuePlugin.UpdateTimer != undefined) {
+				clearTimeout(rescuePlugin.UpdateTimer);
+			}
+			return;
+		}
 		var timeCheck = new Date(parseInt(GetCookie('LoginTimeStamp')));
 		var diff = (new Date().getTime() - timeCheck.getTime()) / 1000;
 		if(diff >= 30) {
