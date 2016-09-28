@@ -126,15 +126,13 @@ var rescuePlugin = {
                 success: function () {
                 }
             });
-            /*if (rescuePlugin.UpdateTimer != undefined) {
-                clearTimeout(rescuePlugin.UpdateTimer);
-            }
-            rescuePlugin.UpdateTimer = setTimeout(rescuePlugin.GetInitialRescueInformation, rescuePlugin.UpdateInterval);*/
         }
     },
     BuildLoginForm: function (loadFromOngoingRescue) {
+        var cmdrLabel, contentHolder, topPanel, infoText;
+
         if (rescuePlugin.UseClientForm) {
-            var cmdrLabel = jQuery('label[for="server_select_nick"]');
+            cmdrLabel = jQuery('label[for="server_select_nick"]');
             if (cmdrLabel.length == 0) {
                 setTimeout(function () {
                     rescuePlugin.BuildLoginForm(loadFromOngoingRescue);
@@ -163,23 +161,20 @@ var rescuePlugin = {
                 systemItem.after(o2Item);
             }
 
-            var contentHolder = jQuery('.side_panel .content');
+            contentHolder = jQuery('.side_panel .content');
             jQuery('.server_select.initial').css({'margin-top': '155px', 'width': '620px'});
-            var topPanel = jQuery('<div style="height: 150px; background-color: rgba(0,0,0,0.9); position: fixed; top: 0; left: 0; right: 0;"><img src="/kiwi/assets/plugins/FuelRats-RescuePlugin/fuelrats.png" alt="Fuel Rats" title="Fuel Rats" style="width: 138px; margin-left: 5px; margin-top: 5px;" /></div>');
+            topPanel = jQuery('<div style="height: 150px; background-color: rgba(0,0,0,0.9); position: fixed; top: 0; left: 0; right: 0;"><img src="/kiwi/assets/plugins/FuelRats-RescuePlugin/fuelrats.png" alt="Fuel Rats" title="Fuel Rats" style="width: 138px; margin-left: 5px; margin-top: 5px;" /></div>');
 
             contentHolder.empty();
             contentHolder.append(topPanel);
 
-            var infoText = jQuery('<div style="margin: 1em 20px; margin-top: 70px;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to assist you on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
+            infoText = jQuery('<div style="margin: 70px 20px 1em;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to assist you on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
             contentHolder.append(infoText);
             if (GetCookie('sentAnnounce') != "null" && loadFromOngoingRescue != undefined && loadFromOngoingRescue) {
                 rescuePlugin.GetInitialRescueInformation(GetCookie('sentAnnounce'), function () {
-                    jQuery('#server_select_nick').val(rescuePlugin.RescueInfo.Client);
-                    jQuery('#server_select_nick').attr('readonly', 'readonly');
-                    jQuery('#system').val(rescuePlugin.RescueInfo.System);
-                    jQuery('#system').attr('readonly', 'readonly');
-                    jQuery('#platform').val(rescuePlugin.RescueInfo.Platform.toUpperCase());
-                    jQuery('#platform').attr('disabled', 'disabled');
+                    jQuery('#server_select_nick').val(rescuePlugin.RescueInfo.Client).attr('readonly', 'readonly');
+                    jQuery('#system').val(rescuePlugin.RescueInfo.System).attr('readonly', 'readonly');
+                    jQuery('#platform').val(rescuePlugin.RescueInfo.Platform.toUpperCase()).attr('disabled', 'disabled');
                     if (rescuePlugin.RescueInfo.CodeRed) {
                         jQuery('#EO2').attr('checked', 'checked');
                     }
@@ -199,7 +194,7 @@ var rescuePlugin = {
                 });
             }
         } else {
-            var cmdrLabel = jQuery('label[for="server_select_nick"]');
+            cmdrLabel = jQuery('label[for="server_select_nick"]');
             if (cmdrLabel.length == 0) {
                 setTimeout(rescuePlugin.BuildLoginForm, 50);
                 return;
@@ -208,14 +203,14 @@ var rescuePlugin = {
 
             jQuery('.status').text('Please enter your details below...');
 
-            var contentHolder = jQuery('.side_panel .content');
+            contentHolder = jQuery('.side_panel .content');
             jQuery('.server_select.initial').css({'margin-top': '155px', 'width': '620px'});
-            var topPanel = jQuery('<div style="height: 150px; background-color: rgba(0,0,0,0.9); position: fixed; top: 0; left: 0; right: 0;"><img src="/kiwi/assets/plugins/FuelRats-RescuePlugin/fuelrats.png" alt="Fuel Rats" title="Fuel Rats" style="width: 138px; margin-left: 5px; margin-top: 5px;" /></div>');
+            topPanel = jQuery('<div style="height: 150px; background-color: rgba(0,0,0,0.9); position: fixed; top: 0; left: 0; right: 0;"><img src="/kiwi/assets/plugins/FuelRats-RescuePlugin/fuelrats.png" alt="Fuel Rats" title="Fuel Rats" style="width: 138px; margin-left: 5px; margin-top: 5px;" /></div>');
 
             contentHolder.empty();
             contentHolder.append(topPanel);
 
-            var infoText = jQuery('<div style="margin: 1em 20px; margin-top: 70px;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to make you assist our clients on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
+            infoText = jQuery('<div style="margin: 70px 20px 1em;"><p style="font-style:italic;">Thank you for providing your information! We\'re ready to make you assist our clients on our IRC server, which you will reach by clicking the <strong>Start</strong> button to the left<br /><br />Please leave your <strong>commander name</strong> intact so we know who you are</p></div>');
             contentHolder.append(infoText);
         }
 
@@ -225,7 +220,7 @@ var rescuePlugin = {
         jQuery('.more').hide();
         jQuery('.startup').hide();
 
-        jQuery('#kiwi .server_select button').on('click', rescuePlugin.SetCommanderInfo);
+        jQuery('.server_select button').on('click', rescuePlugin.SetCommanderInfo);
     },
     GetInitialRescueInformation: function (rescueId, onLoad) {
         $.ajax({
@@ -307,7 +302,7 @@ var rescuePlugin = {
                 if (rescuePlugin.RescueInfo.Rats.hasOwnProperty(ratList[rat])) {
                     var _rat = rescuePlugin.RescueInfo.Rats[ratList[rat]];
                     if (_rat != undefined) {
-                        jQuery('#frrpRescueWindow .rats').append(jQuery('<div>' + rescuePlugin.RescueInfo.Rats[ratList[rat]].CMDRname + '</div>'));
+                        jQuery('.rats').append(jQuery('<div>' + rescuePlugin.RescueInfo.Rats[ratList[rat]].CMDRname + '</div>'));
                     }
                 }
             }
@@ -326,31 +321,6 @@ var rescuePlugin = {
                 }
             }
         }
-    },
-    UpdateRescueInfo: function () {
-        $.ajax({
-            url: rescuePlugin.ApiUrl + '/rescues/' + rescuePlugin.RescueInfo.Id,
-            type: 'GET',
-            success: function (data) {
-                var rescue = data.data;
-                rescuePlugin.RescueInfo.Active = rescue.active;
-                rescuePlugin.RescueInfo.CodeRed = rescue.codeRed;
-                rescuePlugin.RescueInfo.System = rescue.system;
-                rescuePlugin.RescueInfo.Platform = rescue.platform;
-                rescuePlugin.RescueInfo.Open = rescue.open;
-                rescuePlugin.RescueInfo.UpdatedAt = rescue.updatedAt;
-                rescuePlugin.RescueInfo.Epic = rescue.epic;
-                rescuePlugin.RescueInfo.Title = rescue.title;
-                rescuePlugin.RescueInfo.Data = rescue.data;
-                rescuePlugin.RescueInfo.Rats = {};
-
-                rescuePlugin.UpdateRescueGUI();
-                //setTimeout(rescuePlugin.UpdateRescueInfo, rescuePlugin.UpdateInterval);
-            },
-            error: function () {
-                //setTimeout(rescuePlugin.UpdateRescueInfo, 10000);
-            }
-        });
     },
     FetchRatInfo: function (ratId) {
         if (rescuePlugin.CachedRats[ratId]) {
@@ -457,16 +427,18 @@ var rescuePlugin = {
                 }
                 var rats = tpa.data.rats.length;
                 for (var i = 0; i < rats; i++) {
-                    rescuePlugin.RescueInfo.Rats[tpa.data.rescue.rats[i]] = rescuePlugin.FetchRatInfo(tpa.data.rescue.rats[i]);
+                    rescuePlugin.RescueInfo.Rats[tpa.data.rats[i]] = rescuePlugin.FetchRatInfo(tpa.data.rats[i]);
                 }
                 break;
             case 'nicknames:search':
-                console.log(tpa);
                 rescuePlugin.IRCRats[tpa.meta.ircmsg.nick] = tpa.data;
                 rescuePlugin.ParseInput(tpa.meta.ircmsg);
                 break;
             case 'rats:read':
                 rescuePlugin.CachedRats[tpa.data[0].id] = tpa.data[0];
+                break;
+            case 'welcome':
+            case 'stream:subscribe':
                 break;
             default:
                 console.log(tpa);
@@ -495,4 +467,3 @@ jQuery(document).ready(function () {
 
 //function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
 //jQuery(document).on("keydown", disableF5);
-

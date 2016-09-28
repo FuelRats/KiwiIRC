@@ -8,11 +8,8 @@ var frWs = {
 		frWs.conn.onclose = frWs.onClose;
 		frWs.conn.onopen = frWs.onOpen;
 	},
-	onOpen: function(dc) {
-		console.log(dc);
-	},
+	onOpen: function(dc) { frWs.subscribe('0xDEADBEEF'); },
 	onClose: function(dc) {
-		console.log(dc);
 		if(dc.wasClean === false) {
 			setTimeout(frWs.init, 5000);
 		}
@@ -37,6 +34,9 @@ var frWs = {
 			return;
 		}
 		frWs.conn.send(JSON.stringify({ "action": action, "applicationId": frWs.clientId, "data": data, "meta": meta }));		
+	},
+	subscribe: function(stream) {
+		frWs.conn.send(JSON.stringify({ 'action': 'stream:subscribe', 'applicationId': stream }))
 	},
 	searchNickName: function(nickname, meta) {
 		if(frWs.conn.readyState != 1) {
