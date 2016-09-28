@@ -418,6 +418,9 @@ var rescuePlugin = {
 
         rescuePlugin.UpdateRescueGUI();
     },
+    HandleRatTracker: function(tpa) {
+        
+    },
     HandleTPA: function (tpa) {
         switch (tpa.meta.action) {
             case 'rescue:created':
@@ -441,6 +444,10 @@ var rescuePlugin = {
             case 'stream:subscribe':
                 break;
             default:
+                if(typeof tpa.meta.applicationId != 'undefined' && tpa.meta.applicationId == '0xDEADBEEF') {
+                    rescuePlugin.HandleRatTracker(tpa);
+                    return;
+                }
                 console.log(tpa);
                 break;
         }
